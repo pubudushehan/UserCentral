@@ -1,12 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const router = require("./Routes/UserRoutes");
 
 const app = express();
 
-//middleware
-app.use("/", (req, res, next) => {
-  res.send("It is working");
-});
+// Add these middleware before routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// routes middleware
+app.use("/users", router);
 
 mongoose
   .connect("mongodb+srv://admin:7vhqI6hJjogzQfrb@cluster0.gygec.mongodb.net/")
