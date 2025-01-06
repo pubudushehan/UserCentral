@@ -1,13 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./Routes/UserRoutes");
+const cors = require("cors");
 
 const app = express();
 
 // Add these middleware before routes
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 // routes middleware
 app.use("/users", router);
 
