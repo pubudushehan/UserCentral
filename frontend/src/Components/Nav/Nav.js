@@ -21,6 +21,11 @@ function Nav() {
             <h1>user details</h1>
           </Link>
         </li>
+        <li className="home-li">
+          <Link to="/regi" className="active home-a">
+            <button>Register</button>
+          </Link>
+        </li>
       </ul>
     </div>
   );

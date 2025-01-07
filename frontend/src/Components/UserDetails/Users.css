@@ -1,0 +1,53 @@
+.container {
+  padding: 20px;
+}
+
+.print-container {
+  margin: 20px 0;
+}
+
+.users-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+.user-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: white;
+}
+
+.print-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.print-button:hover {
+  background-color: #45a049;
+}
+
+/* Print styles */
+@media print {
+  .print-container {
+    padding: 20px;
+  }
+
+  .user-card {
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  /* Hide non-printable elements */
+  nav,
+  .print-button {
+    display: none !important;
+  }
+}

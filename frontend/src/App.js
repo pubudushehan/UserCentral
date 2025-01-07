@@ -2,8 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import "./App.css";
 import Home from "./Components/Home/Home";
-import AddUser from "./Components/AddUser/User";
+import AddUser from "./Components/AddUser/AddUser";
 import UserDetails from "./Components/UserDetails/Users";
+import UpdateUser from "./Components/UpdateUser/UpdateUser";
+import Register from "./Components/Register/Register";
 
 function App() {
   //type javascript
@@ -15,6 +17,8 @@ function App() {
           <Route path="/mainhome" element={<Home />} />
           <Route path="/adduser" element={<AddUser />} />
           <Route path="/userdetails" element={<UserDetails />} />
+          <Route path="/userdetails/:id" element={<UpdateUser />} />
+          <Route path="/regi" element={<Register />} />
         </Routes>
       </React.Fragment>
     </div>
