@@ -3,6 +3,12 @@ import Nav from "../Nav/Nav";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AddUser.css";
+import {
+  FaUser,
+  FaEnvelope,
+  FaBirthdayCake,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 function AddUser() {
   const history = useNavigate();
@@ -22,76 +28,109 @@ function AddUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
-    sendRequest().then(() => history("/userdetails"));
+    try {
+      await sendRequest();
+      window.alert("User Added Successfully");
+      history("/userdetails");
+    } catch (error) {
+      window.alert("Error adding user. Please try again.");
+    }
   };
 
   const sendRequest = async () => {
-    await axios
-      .post("http://localhost:5000/users", {
-        name: String(inputs.name),
-        gmail: String(inputs.gmail),
-        age: Number(inputs.age),
-        address: String(inputs.address),
-      })
-      .then((res) => res.data);
+    return await axios.post("http://localhost:5000/users", {
+      name: String(inputs.name),
+      gmail: String(inputs.gmail),
+      age: Number(inputs.age),
+      address: String(inputs.address),
+    });
   };
 
   return (
     <div>
       <Nav />
-      <h1>Add User Page</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <br />
-          <input
-            type="text"
-            name="name"
-            value={inputs.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <div className="adduser-container">
+        <div className="adduser-content">
+          <div className="adduser-header">
+            <h1>Add New User</h1>
+            <p>Enter user details to create a new account</p>
+          </div>
 
-        <div>
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            name="gmail"
-            value={inputs.gmail}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <form onSubmit={handleSubmit} className="adduser-form">
+            <div className="form-group">
+              <div className="input-icon">
+                <FaUser className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={inputs.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter full name"
+                />
+              </div>
+            </div>
 
-        <div>
-          <label>Age</label>
-          <br />
-          <input
-            type="number"
-            name="age"
-            value={inputs.age}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <div className="input-icon">
+                <FaEnvelope className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="gmail"
+                  value={inputs.gmail}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter email address"
+                />
+              </div>
+            </div>
 
-        <div>
-          <label>Address</label>
-          <br />
-          <input
-            type="text"
-            name="address"
-            value={inputs.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <div className="input-icon">
+                <FaBirthdayCake className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Age</label>
+                <input
+                  type="number"
+                  name="age"
+                  value={inputs.age}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter age"
+                />
+              </div>
+            </div>
 
-        <button type="submit">Add User</button>
-      </form>
+            <div className="form-group">
+              <div className="input-icon">
+                <FaMapMarkerAlt className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={inputs.address}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter address"
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="submit-btn">
+              Add User
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

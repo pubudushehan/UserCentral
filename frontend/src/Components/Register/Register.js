@@ -4,12 +4,14 @@ import axios from "axios";
 import "./Register.css";
 
 function Register() {
+  // State for form inputs
   const [inputs, setInputs] = useState({
     name: "",
     gmail: "",
     password: "",
   });
 
+  // Handle input changes
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -17,9 +19,11 @@ function Register() {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send registration request to backend
       await axios.post("http://localhost:5000/register", {
         name: inputs.name,
         gmail: inputs.gmail,
@@ -36,6 +40,7 @@ function Register() {
       <Nav />
       <h1>Register Users</h1>
       <form onSubmit={handleSubmit}>
+        {/* Name input */}
         <div>
           <label>Name</label>
           <br />
@@ -48,6 +53,7 @@ function Register() {
           />
         </div>
 
+        {/* Email input */}
         <div>
           <label>Email</label>
           <br />
@@ -60,6 +66,7 @@ function Register() {
           />
         </div>
 
+        {/* Password input */}
         <div>
           <label>Password</label>
           <br />

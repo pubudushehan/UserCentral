@@ -1,91 +1,185 @@
-import React, { useEffect, useRef, useState } from "react";
-import Nav from "../Nav/Nav";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import User from "../User/User";
-import { useReactToPrint } from "react-to-print";
+import Nav from "../Nav/Nav";
+import { Link } from "react-router-dom";
 import "./Users.css";
-
-const URL = "http://localhost:5000/users";
-
-const fetchHandler = async () => {
-  return await axios.get(URL).then((res) => res.data);
-};
+import {
+  FaSearch,
+  FaDownload,
+  FaEnvelope,
+  FaEdit,
+  FaTrash,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const componentRef = useRef();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchHandler().then((data) => setUsers(data.users));
+    getAllUsers();
   }, []);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: "Users-Report",
-    onAfterPrint: () => alert("Report Downloaded Successfully!"),
-  });
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/users");
+      console.log("API Response:", response.data);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [noResults, setNoResults] = useState(false);
-
-  const handleSearch = () => {
-    fetchHandler().then((data) => {
-      const filteredUsers = data.users.filter((user) =>
-        Object.values(user).some((field) =>
-          field.toString().toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
-      setUsers(filteredUsers);
-      setNoResults(filteredUsers.length === 0);
-    });
+      if (response.data && response.data.users) {
+        setUsers(response.data.users);
+      } else if (Array.isArray(response.data)) {
+        setUsers(response.data);
+      } else {
+        setUsers([]);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setUsers([]);
+      setLoading(false);
+    }
   };
 
-  const handleSendReport = () => {
-    // Create the WhatsApp chat URL
-    const phoneNumber = "+94789988379"; // Ensure the phone number is in the correct format
-    const message = "Selected User Reports";
-    const WhatsAppUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message
-    )}`;
-
-    // Open the WhatsApp chat in a new window
-    window.open(WhatsAppUrl, "_blank");
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/users/${id}`);
+      getAllUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
+
+  const handleDownloadReport = () => {
+    if (!Array.isArray(users) || users.length === 0) {
+      alert("No data available to download");
+      return;
+    }
+
+    const data = users.map((user) => ({
+      Name: user.name,
+      Email: user.gmail,
+      Age: user.age,
+      Address: user.address,
+    }));
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      Object.keys(data[0]).join(",") +
+      "\n" +
+      data.map((row) => Object.values(row).join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "user_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleSendMessage = (email) => {
+    window.location.href = `mailto:${email}`;
+  };
+
+  const handleWhatsAppMessage = (phone) => {
+    // Assuming phone number is stored in the user data
+    window.open(`https://wa.me/${phone}`, "_blank");
+  };
+
+  const getFilteredUsers = () => {
+    if (!Array.isArray(users)) {
+      console.log("Users is not an array:", users);
+      return [];
+    }
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.gmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.address.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredUsers = getFilteredUsers();
 
   return (
     <div>
       <Nav />
-      <div className="container">
-        <h1>User Details Display Page</h1>
-        <input
-          onChange={(e) => setSearchQuery(e.target.value)}
-          type="text"
-          name="search"
-          placeholder="Search User Details"
-        ></input>
-        <button onClick={handleSearch}>Search</button>
+      <div className="users-container">
+        <div className="users-header">
+          <h1>User Management</h1>
+          <p>View and manage all registered users</p>
+        </div>
 
-        {noResults ? (
-          <div>
-            <p>No Users Found</p>
+        <div className="action-bar">
+          <div className="search-box">
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search users by name, email, or address..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
+          <div className="action-buttons">
+            <button
+              onClick={handleDownloadReport}
+              className="action-btn download-btn"
+              disabled={!Array.isArray(users) || users.length === 0}
+            >
+              <FaDownload /> Download Report
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <div className="loading-spinner">Loading...</div>
+        ) : !Array.isArray(users) || users.length === 0 ? (
+          <div className="no-results">No users found</div>
         ) : (
-          <div className="print-container" ref={componentRef}>
-            <div className="users-grid">
-              {users.map((user) => (
-                <div key={user._id} className="user-card">
-                  <User user={user} />
+          <div className="users-grid">
+            {filteredUsers.map((user) => (
+              <div key={user._id} className="user-card">
+                <div className="user-info">
+                  <h3>{user.name}</h3>
+                  <p className="email">{user.gmail}</p>
+                  <p className="details">Age: {user.age}</p>
+                  <p className="details">Address: {user.address}</p>
                 </div>
-              ))}
-            </div>
+                <div className="card-actions">
+                  <button
+                    onClick={() => handleSendMessage(user.gmail)}
+                    className="action-icon-btn email-btn"
+                    title="Send Email"
+                  >
+                    <FaEnvelope />
+                  </button>
+                  <button
+                    onClick={() => handleWhatsAppMessage(user.phone)}
+                    className="action-icon-btn whatsapp-btn"
+                    title="Send WhatsApp Message"
+                  >
+                    <FaWhatsapp />
+                  </button>
+                  <Link
+                    to={`/updateuser/${user._id}`}
+                    className="action-icon-btn edit-btn"
+                    title="Edit User"
+                  >
+                    <FaEdit />
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="action-icon-btn delete-btn"
+                    title="Delete User"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         )}
-        <button className="print-button" onClick={handlePrint}>
-          Download Report
-        </button>
-        <button className="print-button" onClick={handleSendReport}>
-          Send Whatsapp Message
-        </button>
       </div>
     </div>
   );
