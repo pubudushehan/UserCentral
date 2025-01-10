@@ -1,11 +1,11 @@
-/* Modern Register Form Styling */
-.register-container {
+/* Modern Login Form Styling */
+.login-container {
   min-height: calc(100vh - 80px);
   background: var(--background-color, #f1f5f9);
   padding: 40px 20px;
 }
 
-.register-content {
+.login-content {
   max-width: 500px;
   margin: 0 auto;
   background: white;
@@ -14,25 +14,25 @@
   overflow: hidden;
 }
 
-.register-header {
+.login-header {
   background: linear-gradient(135deg, #4f46e5, #6366f1);
   color: white;
   padding: 40px;
   text-align: center;
 }
 
-.register-header h1 {
+.login-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
   font-weight: 700;
 }
 
-.register-header p {
+.login-header p {
   opacity: 0.9;
   font-size: 1.1rem;
 }
 
-.register-form {
+.login-form {
   padding: 40px;
 }
 
@@ -90,7 +90,7 @@
   color: #94a3b8;
 }
 
-.register-btn {
+.login-btn {
   width: 100%;
   padding: 15px;
   background: linear-gradient(135deg, #4f46e5, #6366f1);
@@ -104,29 +104,29 @@
   margin-top: 20px;
 }
 
-.register-btn:hover {
+.login-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
 }
 
-.register-btn:active {
+.login-btn:active {
   transform: translateY(0);
 }
 
-.login-link {
+.register-link {
   text-align: center;
   margin-top: 20px;
   color: #64748b;
 }
 
-.login-link a {
+.register-link a {
   color: #4f46e5;
   text-decoration: none;
   font-weight: 500;
   margin-left: 5px;
 }
 
-.login-link a:hover {
+.register-link a:hover {
   text-decoration: underline;
 }
 
@@ -153,25 +153,22 @@
 .form-group:nth-child(2) {
   animation-delay: 0.2s;
 }
-.form-group:nth-child(3) {
-  animation-delay: 0.3s;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .register-content {
+  .login-content {
     margin: 20px;
   }
 
-  .register-header {
+  .login-header {
     padding: 30px 20px;
   }
 
-  .register-header h1 {
+  .login-header h1 {
     font-size: 2rem;
   }
 
-  .register-form {
+  .login-form {
     padding: 30px 20px;
   }
 
@@ -209,12 +206,12 @@
   }
 }
 
-.register-btn.success {
+.login-btn.success {
   background: #10b981;
   pointer-events: none;
 }
 
-.register-btn.success::after {
+.login-btn.success::after {
   content: "✓";
   margin-left: 8px;
   animation: checkmark 0.5s ease forwards;

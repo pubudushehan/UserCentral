@@ -12,10 +12,11 @@ import Login from "./Components/Login/Login";
 import CantactUs from "./Components/CantactUs/CantactUs";
 import SendPdf from "./Components/SendPdf/files/SendPdf";
 import ImgUploader from "./Components/ImgUploader/ImgUploader";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <React.Fragment>
         {/* Define application routes */}
         <Routes>
@@ -35,6 +36,7 @@ function App() {
           <Route path="/upload-image" element={<ImgUploader />} />{" "}
           {/* Image upload */}
         </Routes>
+        <Footer />
       </React.Fragment>
     </div>
   );

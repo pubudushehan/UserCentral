@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Nav from "../Nav/Nav";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import "./Login.css";
 
 function Login() {
   // Initialize navigation hook
@@ -49,36 +51,59 @@ function Login() {
   return (
     <div>
       <Nav />
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Email input */}
-        <div>
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            name="gmail"
-            value={inputs.gmail}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <div className="login-container">
+        <div className="login-content">
+          <div className="login-header">
+            <h1>Welcome Back</h1>
+            <p>Login to access your account</p>
+          </div>
 
-        {/* Password input */}
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            value={inputs.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-group">
+              <div className="input-icon">
+                <FaEnvelope className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="gmail"
+                  value={inputs.gmail}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
 
-        <button type="submit">Login</button>
-      </form>
+            <div className="form-group">
+              <div className="input-icon">
+                <FaLock className="icon" />
+              </div>
+              <div className="input-container">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={inputs.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your password"
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+
+            <div className="register-link">
+              Don't have an account?
+              <Link to="/regi">Register here</Link>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
