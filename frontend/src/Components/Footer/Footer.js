@@ -5,9 +5,8 @@ import {
   FaEnvelope,
   FaPhone,
   FaFacebook,
-  FaTwitter,
-  FaInstagram,
   FaLinkedin,
+  FaGithub,
 } from "react-icons/fa";
 import "./Footer.css";
 
@@ -23,28 +22,21 @@ function Footer() {
           </p>
           <div className="social-links">
             <a
-              href="https://facebook.com"
+              href="https://facebook/PubuduShehan.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaFacebook />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://https://github.com/pubudushehan?tab=overview&from=2025-01-01&to=2025-01-11.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaTwitter />
+              <FaGithub />
             </a>
             <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="https://linkedin.com"
+              href="https://https://www.linkedin.com/in/pubudu-shehan-37a2132a6/.com"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -58,15 +50,15 @@ function Footer() {
           <div className="contact-info">
             <p>
               <FaHome className="contact-icon" />
-              123 Business Street, Suite 100
+              Pitipana, Homagama
             </p>
             <p>
               <FaEnvelope className="contact-icon" />
-              info@usercentral.com
+              pubudushehankarunarathna@gmail.com
             </p>
             <p>
               <FaPhone className="contact-icon" />
-              +1 234 567 8900
+              +94 789988379
             </p>
           </div>
         </div>
