@@ -1,39 +1,58 @@
+/* Match color scheme with Home and AddUser pages */
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #ffed4a;
+  --accent-color: #1a1a1a;
+  --background-color: #f8f9fa;
+  --text-color: #2d2d2d;
+}
+
 .users-container {
   min-height: calc(100vh - 80px);
-  background: var(--background-color, #f1f5f9);
+  background: #ffffff;
   padding: 40px 20px;
+}
+
+.users-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
 }
 
 .users-header {
   text-align: center;
   margin-bottom: 40px;
-  color: #1e293b;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  border-radius: 30px;
+  color: white;
 }
 
 .users-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .users-header p {
-  font-size: 1.1rem;
-  color: #64748b;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  opacity: 0.9;
 }
 
 .action-bar {
-  max-width: 1200px;
-  margin: 0 auto 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 30px;
   display: flex;
   gap: 20px;
   align-items: center;
-  padding: 20px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .search-box {
@@ -51,179 +70,207 @@
 
 .search-box input {
   width: 100%;
-  padding: 12px 15px 12px 45px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
+  padding: 14px 18px 14px 45px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .search-box input:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-.action-buttons {
-  display: flex;
-  gap: 15px;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.download-btn {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white;
-}
-
-.download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
 }
 
 .users-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 25px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 20px 0;
 }
 
 .user-card {
-  background: white;
-  border-radius: 15px;
+  background: #ffffff;
+  border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
 .user-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
 }
 
-.user-info h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 10px;
-}
-
-.user-info .email {
-  color: #6366f1;
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-}
-
-.user-info .details {
-  color: #64748b;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-
-.card-actions {
+.user-info {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #e2e8f0;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.action-icon-btn {
-  width: 35px;
-  height: 35px;
-  border: none;
-  border-radius: 8px;
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatar-icon {
+  font-size: 1.8rem;
+  color: #ffd700;
+}
+
+.user-details h3 {
+  font-size: 1.3rem;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+}
+
+.user-email {
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.user-meta {
+  display: flex;
+  gap: 15px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.user-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.action-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
 }
 
 .email-btn {
-  background: #6366f1;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+}
+
+.whatsapp-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
 }
 
 .edit-btn {
-  background: #10b981;
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  color: #1a1a1a;
 }
 
 .delete-btn {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
 }
 
-.action-icon-btn:hover {
+.download-btn {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  color: #ffd700;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.download-btn:hover {
   transform: translateY(-2px);
-  filter: brightness(110%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  color: var(--secondary-color);
 }
 
-.loading-spinner {
-  text-align: center;
-  padding: 40px;
-  color: #6366f1;
-  font-size: 1.2rem;
+/* Update user actions grid */
+.user-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* Add hover effects for all buttons */
+.email-btn:hover {
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, #ffed4a, #ffd700);
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .users-header {
+    padding: 40px 20px;
+  }
+
+  .users-header h1 {
+    font-size: 2.5rem;
+  }
+
   .action-bar {
     flex-direction: column;
-    padding: 15px;
-  }
-
-  .action-buttons {
-    width: 100%;
-  }
-
-  .action-btn {
-    width: 100%;
-    justify-content: center;
   }
 
   .users-grid {
     grid-template-columns: 1fr;
   }
 
-  .users-header h1 {
-    font-size: 2rem;
+  .user-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
-}
 
-/* Loading Animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+  .action-btn {
+    padding: 12px;
+    font-size: 0.9rem;
   }
-}
-
-.loading-spinner::before {
-  content: "";
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin: 0 auto 10px;
-  border: 3px solid #6366f1;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.no-results {
-  text-align: center;
-  padding: 40px;
-  color: #64748b;
-  font-size: 1.1rem;
 }

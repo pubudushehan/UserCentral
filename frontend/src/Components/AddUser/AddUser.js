@@ -18,6 +18,7 @@ function AddUser() {
     age: "",
     address: "",
   });
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -30,8 +31,10 @@ function AddUser() {
     e.preventDefault();
     try {
       await sendRequest();
-      window.alert("User Added Successfully");
-      history("/userdetails");
+      setIsSuccess(true);
+      setTimeout(() => {
+        history("/userdetails");
+      }, 1500);
     } catch (error) {
       window.alert("Error adding user. Please try again.");
     }
@@ -125,8 +128,11 @@ function AddUser() {
               </div>
             </div>
 
-            <button type="submit" className="submit-btn">
-              Add User
+            <button
+              type="submit"
+              className={`submit-btn ${isSuccess ? "success" : ""}`}
+            >
+              {isSuccess ? "User Added Successfully!" : "Add User"}
             </button>
           </form>
         </div>

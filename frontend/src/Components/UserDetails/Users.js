@@ -10,6 +10,9 @@ import {
   FaEdit,
   FaTrash,
   FaWhatsapp,
+  FaUser,
+  FaBirthdayCake,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
 function Users() {
@@ -106,80 +109,84 @@ function Users() {
     <div>
       <Nav />
       <div className="users-container">
-        <div className="users-header">
-          <h1>User Management</h1>
-          <p>View and manage all registered users</p>
-        </div>
-
-        <div className="action-bar">
-          <div className="search-box">
-            <FaSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Search users by name, email, or address..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+        <div className="users-content">
+          <div className="users-header">
+            <h1>User Management</h1>
+            <p>View and manage all registered users</p>
           </div>
-          <div className="action-buttons">
-            <button
-              onClick={handleDownloadReport}
-              className="action-btn download-btn"
-              disabled={!Array.isArray(users) || users.length === 0}
-            >
-              <FaDownload /> Download Report
-            </button>
-          </div>
-        </div>
 
-        {loading ? (
-          <div className="loading-spinner">Loading...</div>
-        ) : !Array.isArray(users) || users.length === 0 ? (
-          <div className="no-results">No users found</div>
-        ) : (
+          <div className="action-bar">
+            <div className="search-box">
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search users by name, email, or address..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="action-buttons">
+              <button
+                onClick={handleDownloadReport}
+                className="action-btn download-btn"
+                disabled={!Array.isArray(users) || users.length === 0}
+              >
+                <FaDownload className="btn-icon" /> Download Report
+              </button>
+            </div>
+          </div>
+
           <div className="users-grid">
             {filteredUsers.map((user) => (
               <div key={user._id} className="user-card">
                 <div className="user-info">
-                  <h3>{user.name}</h3>
-                  <p className="email">{user.gmail}</p>
-                  <p className="details">Age: {user.age}</p>
-                  <p className="details">Address: {user.address}</p>
+                  <div className="user-avatar">
+                    <FaUser className="avatar-icon" />
+                  </div>
+                  <div className="user-details">
+                    <h3>{user.name}</h3>
+                    <p className="user-email">{user.gmail}</p>
+                    <p className="user-meta">
+                      <span>
+                        <FaBirthdayCake /> {user.age} years
+                      </span>
+                      <span>
+                        <FaMapMarkerAlt /> {user.address}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <div className="card-actions">
+
+                <div className="user-actions">
                   <button
                     onClick={() => handleSendMessage(user.gmail)}
-                    className="action-icon-btn email-btn"
-                    title="Send Email"
+                    className="action-btn email-btn"
                   >
-                    <FaEnvelope />
+                    <FaEnvelope className="btn-icon" /> Email
                   </button>
                   <button
                     onClick={() => handleWhatsAppMessage(user.phone)}
-                    className="action-icon-btn whatsapp-btn"
-                    title="Send WhatsApp Message"
+                    className="action-btn whatsapp-btn"
                   >
-                    <FaWhatsapp />
+                    <FaWhatsapp className="btn-icon" /> WhatsApp
                   </button>
                   <Link
-                    to={`/updateuser/${user._id}`}
-                    className="action-icon-btn edit-btn"
-                    title="Edit User"
+                    to={`/userdetails/${user._id}`}
+                    className="action-btn edit-btn"
                   >
-                    <FaEdit />
+                    <FaEdit className="btn-icon" /> Edit
                   </Link>
                   <button
                     onClick={() => handleDelete(user._id)}
-                    className="action-icon-btn delete-btn"
-                    title="Delete User"
+                    className="action-btn delete-btn"
                   >
-                    <FaTrash />
+                    <FaTrash className="btn-icon" /> Delete
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
