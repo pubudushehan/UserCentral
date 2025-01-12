@@ -1,99 +1,81 @@
 import React, { useState, useEffect } from "react";
-import Nav from "../Nav/Nav";
 import axios from "axios";
+import Nav from "../Nav/Nav";
 import "./ImgUploader.css";
-import { FaCloudUploadAlt } from "react-icons/fa";
 
 function ImgUploader() {
-  //State management for form inputs and data
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState(null);
-  const [allImages, setAllImages] = useState([]);
+  const [file, setFile] = useState(null);
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch images when component mounts
   useEffect(() => {
     fetchImages();
   }, []);
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const fetchImages = async () => {
     setLoading(true);
-    setError(null);
-
-    // Validate image selection
-    if (!image) {
-      setError("Please select an image");
-      setLoading(false);
-      return;
-    }
-
-    // Create form data for file upload
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("image", image);
-
     try {
-      // Send POST request to upload image
-      const response = await axios.post(
-        "http://localhost:5000/uploadImage",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Handle successful upload
+      const response = await axios.get("http://localhost:5000/getImage");
       if (response.data.status === "ok") {
-        alert("Image uploaded successfully!");
-        setTitle("");
-        setImage(null);
-        e.target.reset();
-        fetchImages(); // Refresh image list
+        setImages(response.data.images);
       }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      setError(
-        error.response?.data?.message ||
-          "Failed to upload image. Please try again."
-      );
+    } catch (err) {
+      setError("Failed to fetch images");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Fetch all images from server
-  const fetchImages = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("image", file);
+
     try {
-      const response = await axios.get("http://localhost:5000/getImage");
+      const response = await axios.post(
+        "http://localhost:5000/uploadImage",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
       if (response.data.status === "ok") {
-        setAllImages(response.data.images);
+        setTitle("");
+        setFile(null);
+        e.target.reset();
+        fetchImages();
+      } else {
+        setError("Failed to upload image");
       }
-    } catch (error) {
-      console.error("Error fetching images:", error);
-      setError("Failed to fetch images");
+    } catch (err) {
+      setError(err.response?.data?.message || "Error uploading image");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Render component
   return (
     <div>
       <Nav />
-      <div className="uploader-container">
-        <div className="uploader-header">
-          <FaCloudUploadAlt className="header-icon" />
-          <h1>Image Uploader</h1>
-          <p>Upload and manage your images with ease</p>
-        </div>
-        {error && <div className="error-message">{error}</div>}
+      <div className="gallery-container">
+        <div className="gallery-content">
+          <div className="gallery-header">
+            <h1>Image Gallery</h1>
+            <p>Upload and showcase your images</p>
+          </div>
 
-        {/* Image upload form */}
-        <form onSubmit={handleSubmit} className="upload-form">
-          <div className="form-group">
+          {error && <div className="error-message">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="upload-form">
             <label>Image Title</label>
             <input
               type="text"
@@ -102,34 +84,35 @@ function ImgUploader() {
               required
               placeholder="Enter image title"
             />
-          </div>
 
-          <div className="form-group">
             <label>Select Image</label>
             <input
               type="file"
+              onChange={(e) => setFile(e.target.files[0])}
               accept="image/*"
-              onChange={(e) => setImage(e.target.files[0])}
               required
             />
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Uploading..." : "Upload Image"}
+            </button>
+          </form>
+
+          {loading && <div className="loading">Loading images...</div>}
+
+          <div className="gallery-grid">
+            {images.map((image) => (
+              <div key={image._id} className="image-card">
+                <img
+                  src={`http://localhost:5000/files/${image.image}`}
+                  alt={image.title}
+                />
+                <div className="image-info">
+                  <h3>{image.title}</h3>
+                </div>
+              </div>
+            ))}
           </div>
-
-          <button type="submit" disabled={loading}>
-            {loading ? "Uploading..." : "Upload Image"}
-          </button>
-        </form>
-
-        {/* Display uploaded images */}
-        <div className="images-grid">
-          {allImages.map((img, index) => (
-            <div key={index} className="image-card">
-              <img
-                src={`http://localhost:5000/files/${img.image}`}
-                alt={img.title}
-              />
-              <h3>{img.title}</h3>
-            </div>
-          ))}
         </div>
       </div>
     </div>

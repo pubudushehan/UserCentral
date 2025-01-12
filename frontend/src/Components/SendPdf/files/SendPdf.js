@@ -89,7 +89,9 @@ function SendPdf() {
       }
     } catch (err) {
       console.error("Error deleting PDF:", err);
-      setError("Error deleting PDF. Please try again.");
+      setError(
+        err.response?.data?.message || "Error deleting PDF. Please try again."
+      );
     }
   };
 
