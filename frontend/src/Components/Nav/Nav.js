@@ -47,13 +47,6 @@ function Nav() {
           </li>
 
           <li className="nav-item">
-            <Link to="/cantactus" className="nav-link">
-              <FaEnvelope className="nav-icon" />
-              <span>Contact Us</span>
-            </Link>
-          </li>
-
-          <li className="nav-item">
             <Link to="/sendpdf" className="nav-link">
               <FaFilePdf className="nav-icon" />
               <span>Send PDF</span>
@@ -64,6 +57,13 @@ function Nav() {
             <Link to="/upload-image" className="nav-link">
               <FaImages className="nav-icon" />
               <span>Gallery</span>
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/cantactus" className="nav-link">
+              <FaEnvelope className="nav-icon" />
+              <span>Contact Us</span>
             </Link>
           </li>
 

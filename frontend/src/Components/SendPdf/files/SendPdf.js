@@ -73,6 +73,26 @@ function SendPdf() {
     }
   };
 
+  const deletePdf = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/deletefile/${id}`
+      );
+      if (response.data.status === "ok") {
+        // Clear the PDF viewer if the deleted PDF was being displayed
+        if (pdfFile && pdfFile.includes(id)) {
+          setPDFFile(null);
+        }
+        getPdf(); // Refresh the PDF list
+      } else {
+        setError("Failed to delete PDF");
+      }
+    } catch (err) {
+      console.error("Error deleting PDF:", err);
+      setError("Error deleting PDF. Please try again.");
+    }
+  };
+
   const showPdf = (pdf) => {
     setPDFFile(`http://localhost:5000/files/${pdf}`);
   };
@@ -116,7 +136,20 @@ function SendPdf() {
               allPdf.map((data) => (
                 <div key={data._id}>
                   <h1>Title: {data.title}</h1>
-                  <button onClick={() => showPdf(data.pdf)}>Show Pdf</button>
+                  <div className="button-group">
+                    <button
+                      onClick={() => showPdf(data.pdf)}
+                      className="show-btn"
+                    >
+                      Show Pdf
+                    </button>
+                    <button
+                      onClick={() => deletePdf(data._id)}
+                      className="delete-btn"
+                    >
+                      Delete Pdf
+                    </button>
+                  </div>
                 </div>
               ))
             )}
