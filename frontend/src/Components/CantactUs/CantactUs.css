@@ -1,35 +1,47 @@
-/* Modern Contact Form Styling */
+/* Match color scheme with Home page */
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #ffed4a;
+  --accent-color: #1a1a1a;
+  --background-color: #f8f9fa;
+  --text-color: #2d2d2d;
+}
+
 .contact-container {
   min-height: calc(100vh - 80px);
-  background: var(--background-color, #f1f5f9);
+  background: #ffffff;
   padding: 40px 20px;
 }
 
 .contact-content {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .contact-header {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
   color: white;
-  padding: 40px;
+  padding: 60px 40px;
   text-align: center;
 }
 
 .contact-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .contact-header p {
   opacity: 0.9;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  color: #e0e0e0;
 }
 
 .contact-form {
@@ -46,7 +58,7 @@
 .input-icon {
   width: 40px;
   height: 40px;
-  background: rgba(79, 70, 229, 0.1);
+  background: rgba(26, 26, 26, 0.1);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -54,7 +66,7 @@
 }
 
 .icon {
-  color: #4f46e5;
+  color: var(--accent-color);
   font-size: 1.2rem;
 }
 
@@ -64,21 +76,21 @@
 
 .input-container label {
   display: block;
-  margin-bottom: 8px;
-  color: #1e293b;
-  font-weight: 500;
-  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .input-container input,
 .input-container textarea {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #e5e7eb;
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  color: #1e293b;
+  color: var(--text-color);
 }
 
 .input-container textarea {
@@ -89,8 +101,8 @@
 .input-container input:focus,
 .input-container textarea:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
 }
 
 .input-container input::placeholder,
@@ -101,8 +113,8 @@
 .send-button {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  color: var(--primary-color);
   border: none;
   border-radius: 10px;
   font-size: 1.1rem;
@@ -118,52 +130,38 @@
 
 .send-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  color: var(--secondary-color);
 }
 
 .send-button:active {
   transform: translateY(0);
 }
 
-/* Animation for form groups */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.error-message {
+  background: #fee2e2;
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 20px 40px;
+  text-align: center;
 }
 
-.form-group {
-  animation: slideUp 0.5s ease forwards;
-  opacity: 0;
-}
-
-.form-group:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.form-group:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.form-group:nth-child(3) {
-  animation-delay: 0.3s;
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-color);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .contact-content {
-    margin: 20px;
-  }
-
   .contact-header {
-    padding: 30px 20px;
+    padding: 40px 20px;
   }
 
   .contact-header h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .contact-form {
@@ -177,7 +175,6 @@
 
   .input-icon {
     width: 100%;
-    height: 35px;
-    border-radius: 8px;
+    height: 40px;
   }
 }

@@ -212,3 +212,33 @@ app.delete("/deletefile/:id", async (req, res) => {
     res.status(500).json({ status: "error", message: "Server error" });
   }
 });
+
+// Delete Image endpoint
+app.delete("/deleteimage/:id", async (req, res) => {
+  try {
+    const image = await ImgSchema.findById(req.params.id);
+    if (!image) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Image not found" });
+    }
+
+    // Delete file from filesystem
+    const filePath = `./files/${image.image}`;
+    fs.unlink(filePath, async (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return res
+          .status(500)
+          .json({ status: "error", message: "Error deleting file" });
+      }
+
+      // Delete from database
+      await image.deleteOne();
+      res.json({ status: "ok", message: "Image deleted successfully" });
+    });
+  } catch (error) {
+    console.error("Error in delete endpoint:", error);
+    res.status(500).json({ status: "error", message: "Server error" });
+  }
+});

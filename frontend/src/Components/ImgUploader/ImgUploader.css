@@ -128,6 +128,9 @@
 
 .image-info {
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .image-info h3 {
@@ -135,6 +138,28 @@
   color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 600;
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.delete-button:active {
+  transform: translateY(0);
 }
 
 .error-message {

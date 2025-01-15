@@ -44,7 +44,7 @@ function Register() {
         <div className="register-content">
           <div className="register-header">
             <h1>Create Account</h1>
-            <p>Join our community today</p>
+            <p>Join User Central today</p>
           </div>
 
           <form onSubmit={handleSubmit} className="register-form">

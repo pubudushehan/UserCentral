@@ -33,13 +33,6 @@ function Nav() {
 
         <ul className={`nav-menu ${isOpen ? "active" : ""}`}>
           <li className="nav-item">
-            <Link to="/adduser" className="nav-link">
-              <FaUserPlus className="nav-icon" />
-              <span>Add User</span>
-            </Link>
-          </li>
-
-          <li className="nav-item">
             <Link to="/userdetails" className="nav-link">
               <FaUsers className="nav-icon" />
               <span>User Details</span>
@@ -47,9 +40,16 @@ function Nav() {
           </li>
 
           <li className="nav-item">
+            <Link to="/adduser" className="nav-link">
+              <FaUserPlus className="nav-icon" />
+              <span>Add User</span>
+            </Link>
+          </li>
+
+          <li className="nav-item">
             <Link to="/sendpdf" className="nav-link">
               <FaFilePdf className="nav-icon" />
-              <span>Send PDF</span>
+              <span>Upload PDF</span>
             </Link>
           </li>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Nav from "../Nav/Nav";
 import "./ImgUploader.css";
+import { FaTrash } from "react-icons/fa";
 
 function ImgUploader() {
   const [title, setTitle] = useState("");
@@ -63,6 +64,23 @@ function ImgUploader() {
     }
   };
 
+  const deleteImage = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/deleteimage/${id}`
+      );
+      if (response.data.status === "ok") {
+        // Refresh the images list
+        fetchImages();
+      } else {
+        setError("Failed to delete image");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Error deleting image");
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <Nav />
@@ -109,6 +127,13 @@ function ImgUploader() {
                 />
                 <div className="image-info">
                   <h3>{image.title}</h3>
+                  <button
+                    onClick={() => deleteImage(image._id)}
+                    className="delete-button"
+                    title="Delete image"
+                  >
+                    <FaTrash />
+                  </button>
                 </div>
               </div>
             ))}
